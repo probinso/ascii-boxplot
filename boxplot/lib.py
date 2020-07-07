@@ -44,16 +44,18 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     smallest_q1 = min([d.q1 for d in datasets])
     biggest_q3 = max([d.q3 for d in datasets])
 
-    span = 1 # (biggest_q3 - smallest_q1) or 1
+    span = (biggest_q3 - smallest_q1) or 1
     factor = ((adj_width * gamma) / (2 + gamma)) / span
 
     origin = int(factor * (smallest_q1 - (span // gamma)))
     edge = int(factor * (biggest_q3 + (span // gamma)))
 
+    mid = "%.1f" % ((smallest_q1 + biggest_q3 ) / 2)
+
     output = ""
     if with_scale:
         output += (" " * label_width)
-        output += "|%-*g%*g|" % ((adj_width // 2), (origin / factor), (adj_width // 2), (edge / factor))
+        output += "|%-*g%s%*g|" % ((adj_width // 2 - len(mid) // 2), (origin / factor), mid, (adj_width // 2 + len(mid) // 2), (edge / factor))
 
     for dataset in datasets:
         dataset.scale(factor)
@@ -64,11 +66,11 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
 def _render_one(data=None, origin=None, edge=None, adj_width=None, label_width=None):
     out = ""
     out += (" " * int(max((data.minimum - origin), 0)))
-    out += ("-" * int(data.q1 - max(data.minimum, origin)))
+    out += ("·" * int(data.q1 - max(data.minimum, origin)))
     out += ("=" * int(data.q2 - data.q1))
-    out += "0"
+    out += "x"
     out += ("=" * int(data.q3 - data.q2))
-    out += ("-" * int(min(data.maximum, edge) - data.q3))
+    out += ("·" * int(min(data.maximum, edge) - data.q3))
     out += (" " * int(max((edge - data.maximum), 0)))
 
     # cast to list so we can assign by index
