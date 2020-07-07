@@ -7,20 +7,19 @@ config = {
     'author': 'Evan Wheeler',
     'author_email': 'evanmwheeler@gmail.com',
     'url': 'https://github.com/ewheeler/ascii-boxplot',
-    'license'='Apache License 2.0',
     'description': 'ascii boxplot',
     'long_description': open('README', 'r').read(),
-    'license': 'MIT',
+    'license': 'Apache Software License v2.0',
     'version': '0.0.1',
     'install_requires': [],
     'classifiers': [
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache Software License v2.0",
         "Development Status :: 1 - Planning",
     ],
     'packages': find_packages(),
-    entry_points={
+    'entry_points':{
         'console_scripts':
         [
             'boxplot = boxplot.main:main'

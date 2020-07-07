@@ -26,7 +26,7 @@ import sys
 import itertools
 from optparse import OptionParser
 
-from lib import render, Dataset
+from .lib import render, Dataset
 
 
 def str_to_number(s):
