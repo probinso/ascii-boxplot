@@ -44,7 +44,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     smallest_q1 = min([d.q1 for d in datasets])
     biggest_q3 = max([d.q3 for d in datasets])
 
-    span = (biggest_q3 - smallest_q1) or 1
+    span = 1 # (biggest_q3 - smallest_q1) or 1
     factor = ((adj_width * gamma) / (2 + gamma)) / span
 
     origin = int(factor * (smallest_q1 - (span // gamma)))
