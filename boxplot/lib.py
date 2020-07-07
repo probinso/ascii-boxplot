@@ -53,7 +53,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     output = ""
     if with_scale:
         output += (" " * label_width)
-        output += "|%-*g%*g|" % ((adj_width // 2), (origin // factor), (adj_width // 2), (edge // factor))
+        output += "|%-*g%*g|" % ((adj_width // 2), (origin / factor), (adj_width // 2), (edge / factor))
 
     for dataset in datasets:
         dataset.scale(factor)
