@@ -1,5 +1,6 @@
 # vim: ai ts=4 sts=4 et sw=4
 from numbers import Number
+from operator import attrgetter
 
 
 def percentile(a, p):
@@ -55,7 +56,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     output = ""
     if with_scale:
         output += (" " * label_width)
-        output += "|%-*g%s%*g|" % ((adj_width // 2 - len(mid) // 2), (origin / factor), mid, (adj_width // 2 + len(mid) // 2), (edge / factor))
+        output += "  |%-*g%s%*g|" % ((adj_width // 2 - len(mid) // 2), (origin / factor), mid, (adj_width // 2 + len(mid) // 2), (edge / factor))
 
     for dataset in datasets:
         dataset.scale(factor)
@@ -64,7 +65,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
 
 
 def _render_one(data=None, origin=None, edge=None, adj_width=None, label_width=None):
-    out = ""
+    out = " |"
     out += (" " * int(max((data.minimum - origin), 0)))
     out += ("·" * int(data.q1 - max(data.minimum, origin)))
     out += ("=" * int(data.q2 - data.q1))
