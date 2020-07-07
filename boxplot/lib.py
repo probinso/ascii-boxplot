@@ -45,10 +45,10 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     biggest_q3 = max([d.q3 for d in datasets])
 
     span = (biggest_q3 - smallest_q1) or 1
-    factor = ((adj_width * gamma) / (2 + gamma)) / span
+    factor = ((adj_width * gamma) // (2 + gamma)) // span
 
-    origin = int(factor * (smallest_q1 - (span / gamma)))
-    edge = int(factor * (biggest_q3 + (span / gamma)))
+    origin = int(factor * (smallest_q1 - (span // gamma)))
+    edge = int(factor * (biggest_q3 + (span // gamma)))
 
     output = ""
     if with_scale:
