@@ -38,17 +38,6 @@ class Dataset(object):
 # list_of_tuples = [('name', []),...]
 def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
 
-    """
-    datasets = []
-    for tup in list_of_tuples:
-        if tup[0]:
-            # if series name is provided, use it
-            datasets.append(Dataset(tup[0], tup[1]))
-        else:
-            # otherwise generate a name
-            datasets.append(Dataset('series-%s' % (list_of_tuples.index(tup) + 1), tup[1]))
-    """
-
     gamma = 2 * max(0, box_weight or 1)
     adj_width = width - label_width - 2
 
@@ -64,7 +53,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     output = ""
     if with_scale:
         output += (" " * label_width)
-        output += "|%-*g%*g|" % ((adj_width / 2), (origin / factor), (adj_width / 2), (edge / factor))
+        output += "|%-*g%*g|" % ((adj_width // 2), (origin // factor), (adj_width // 2), (edge // factor))
 
     for dataset in datasets:
         dataset.scale(factor)
@@ -97,8 +86,20 @@ def _render_one(data=None, origin=None, edge=None, adj_width=None, label_width=N
 
 if __name__ == "__main__":
 
-    print(render([
+    list_of_tuples = [
         ("test data", [-2.5, -1, 0, 1, 2.5]),
         ("", [-1, 0, 1, 2, 3.5]),
         ("", [0, 1.5, 2, 2.5, 5.5]),
-    ]))
+    ]
+
+    datasets = []
+    for tup in list_of_tuples:
+        if tup[0]:
+            # if series name is provided, use it
+            datasets.append(Dataset(tup[0], tup[1]))
+        else:
+            # otherwise generate a name
+            datasets.append(Dataset('series-%s' % (list_of_tuples.index(tup) + 1), tup[1]))
+
+
+    print(render(datasets))
