@@ -40,7 +40,7 @@ class Dataset(object):
 def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
 
     gamma = 2 * max(0, box_weight or 1)
-    adj_width = width - label_width - 2
+    adj_width = width - label_width - 2 
 
     smallest_q1 = min([d.q1 for d in datasets])
     biggest_q3 = max([d.q3 for d in datasets])
@@ -51,7 +51,7 @@ def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
     origin = int(factor * (smallest_q1 - (span // gamma)))
     edge = int(factor * (biggest_q3 + (span // gamma)))
 
-    mid = "%.1f" % ((smallest_q1 + biggest_q3 ) / 2)
+    mid = "."
 
     output = ""
     if with_scale:
