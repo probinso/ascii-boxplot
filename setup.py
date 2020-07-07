@@ -20,6 +20,12 @@ config = {
         "Development Status :: 1 - Planning",
     ],
     'packages': find_packages(),
+    entry_points={
+        'console_scripts':
+        [
+            'boxplot = boxplot.main:main'
+        ]
+    }
 }
 
 if __name__ == '__main__':
