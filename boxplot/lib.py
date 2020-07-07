@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # vim: ai ts=4 sts=4 et sw=4
 from numbers import Number
 
@@ -37,7 +36,9 @@ class Dataset(object):
 
 
 # list_of_tuples = [('name', []),...]
-def render(list_of_tuples, width=72, label_width=10, box_weight=1, with_scale=True):
+def render(datasets, width=72, label_width=10, box_weight=1, with_scale=True):
+
+    """
     datasets = []
     for tup in list_of_tuples:
         if tup[0]:
@@ -46,12 +47,13 @@ def render(list_of_tuples, width=72, label_width=10, box_weight=1, with_scale=Tr
         else:
             # otherwise generate a name
             datasets.append(Dataset('series-%s' % (list_of_tuples.index(tup) + 1), tup[1]))
+    """
 
     gamma = 2 * max(0, box_weight or 1)
     adj_width = width - label_width - 2
 
-    smallest_q1 = min(map(lambda d: d.q1, datasets))
-    biggest_q3 = max(map(lambda d: d.q3, datasets))
+    smallest_q1 = min([d.q1 for d in datasets])
+    biggest_q3 = max([d.q3 for d in datasets])
 
     span = (biggest_q3 - smallest_q1) or 1
     factor = ((adj_width * gamma) / (2 + gamma)) / span
@@ -92,10 +94,11 @@ def _render_one(data=None, origin=None, edge=None, adj_width=None, label_width=N
     name = data.name[0:label_width]
     return "%*s %s" % (label_width, name, out)
 
+
 if __name__ == "__main__":
 
-    print render([
+    print(render([
         ("test data", [-2.5, -1, 0, 1, 2.5]),
         ("", [-1, 0, 1, 2, 3.5]),
         ("", [0, 1.5, 2, 2.5, 5.5]),
-    ])
+    ]))
